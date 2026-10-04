@@ -2382,7 +2382,7 @@ async function loadFromSupabase(){
     updateSaveStatus();
   }catch(e){
     console.warn('Supabase load error:', e);
-    updateSyncStatus('err', '☁ Error');
+    updateSyncStatus('off', '☁ Offline');
   }
 }
 function syncToSupabase(){
@@ -2398,11 +2398,11 @@ function syncToSupabase(){
         updated_at: now,
         updated_by: 'browser-' + (navigator.userAgent.slice(0,30))
       });
-      if(error){ console.warn('Supabase save:', error); updateSyncStatus('err', '☁ Error'); }
+      if(error){ console.warn('Supabase save:', error); updateSyncStatus('off', '☁ Offline'); }
       else{ _lastSyncAt = new Date(now).getTime(); updateSyncStatus('ok', '☁ Synced'); updateSaveStatus(); }
     }catch(e){
       console.warn('Supabase sync error:', e);
-      updateSyncStatus('err', '☁ Error');
+      updateSyncStatus('off', '☁ Offline');
     }
     _syncLock = false;
   }, 2000);
